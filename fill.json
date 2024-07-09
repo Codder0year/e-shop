@@ -1,0 +1,57 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "smartphone",
+      "description": "смартфоны"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "TV",
+      "description": "Телевизоры"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+      "name": "iphone 15",
+      "description": "256GB",
+      "image": "images/R_kdPpj42.png",
+      "category": 2,
+      "price": "155000.00",
+      "created_at": "2024-07-09T11:27:06.096Z",
+      "updated_at": "2024-07-09T11:27:06.096Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+      "name": "85\" Neo QLED 8K QN900D Smart TV (2024)",
+      "description": "Нейронный процессор NQ 8K AI 3-го поколения\r\nИнтеллектуальное масштабирование до 8К\r\nДизайн Infinity Air\r\nОперационная система Samsung Tizen",
+      "image": "images/QN85QN900DFXZA_VISTA1_3bdacb5c-7e12-468f-93c2-b4d5ef652c39.webp",
+      "category": 3,
+      "price": "160589.00",
+      "created_at": "2024-07-09T11:51:44.384Z",
+      "updated_at": "2024-07-09T11:51:44.384Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+      "name": "кабель HDMI",
+      "description": "HDMI",
+      "image": "images/OIP.jfif",
+      "category": null,
+      "price": "900.00",
+      "created_at": "2024-07-09T11:55:22.648Z",
+      "updated_at": "2024-07-09T11:55:22.648Z"
+    }
+  }
+]
