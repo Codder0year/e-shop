@@ -24,13 +24,13 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='дата обновления')
 
-
-
     def __str__(self):
-        return (f'{self.name}, {self.category}, {self.price}, {self.date_created}, {self.date_updated}, {self.image}, '
+        return (f'{self.name}, {self.category}, {self.price}, {self.created_at}, {self.updated_at}, {self.image}, '
                 f'{self.description}')
 
 
 class Meta:
     verbose_name_plural = "Products"
     verbose_name = "Product"
+
+

@@ -1,11 +1,10 @@
 from django.shortcuts import render
 
+from catalog.models import Category
+
 
 def home(request):
-    # функция принимает параметр request
-    # и с помощью специальной функции возвращает ответ
     return render(request, 'home.html')
-
 
 def contacts(request):
     if request.method == 'POST':
@@ -16,3 +15,11 @@ def contacts(request):
         # а также передается информация, которую заполнил пользователь
         print(name, message, phone)
     return render(request, 'contacts.html')
+
+
+def categories_list(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, 'categories_list.html', context=context)
+
+
