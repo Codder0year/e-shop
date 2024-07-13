@@ -4,7 +4,7 @@ register = template.Library()
 
 
 @register.filter()
-def my_tags(path):
+def catalog_filter(path):
     if path:
         return f'/media/{path}'
     return "#" # default

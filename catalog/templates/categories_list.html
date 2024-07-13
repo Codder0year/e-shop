@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     {% if category.image %}
-                    <img src="{{ category.image | my_tags }}" alt="{{ category.name }}">
+                    <img src="{{ category.image | catalog_filter }}" alt="{{ category.name }}" class="img-fluid">
                     {% endif %}
                     <h1 class="card-title pricing-card-title">{{ category.price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
