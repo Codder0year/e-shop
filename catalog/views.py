@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from catalog.models import Category
+from catalog.models import Category, Product
 
 
 def home(request):
     return render(request, 'home.html')
+
 
 def contacts(request):
     if request.method == 'POST':
@@ -23,3 +24,7 @@ def categories_list(request):
     return render(request, 'categories_list.html', context=context)
 
 
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    context = {'category': category}
+    return render(request, 'category_detail.html', context=context)
