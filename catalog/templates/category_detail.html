@@ -1,20 +1,19 @@
 {% extends "categories.html" %}
-{% load my_tags %}
 {% block content %}
 <div class="container">
     <div class="row">
-        {% for category in categories %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
                 </div>
                 <div class="card-body">
-                    {% if category.image %}
-                    <img src="{{ category.image | catalog_filter }}" alt="{{ category.name }}" class="img-fluid">
+                    {% if Category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
                     {% endif %}
-                    <h1 class="card-title pricing-card-title">{{ category.price }}</h1>
+                    <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>- {{ category.description }}</li>
+                        <li>- {{ object.description }}</li>
                         <li>- Поддержка</li>
                         <li>- Установка на сервер</li>
                         <li>- Получение обновлений</li>
@@ -24,7 +23,6 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

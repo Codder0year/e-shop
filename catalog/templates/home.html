@@ -48,9 +48,7 @@
   </head>
   <body>
 
-
 {% include 'includes/inc_menu.html' %}
-
 
 <main>
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -132,54 +130,9 @@
   </div>
 </main>
 
-<footer class="container py-5">
-  <div class="row">
-    <div class="col-12 col-md">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Продукт</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
-      <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Особенности</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Крутой персонал</a></li>
-        <li><a class="link-secondary" href="#">Случайная особенность</a></li>
-        <li><a class="link-secondary" href="#">Особенность команды</a></li>
-        <li><a class="link-secondary" href="#">Персонал для разработки</a></li>
-        <li><a class="link-secondary" href="#">Другой</a></li>
-        <li><a class="link-secondary" href="#">Последний раз</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Ресурсы</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Название ресурса</a></li>
-        <li><a class="link-secondary" href="#">Ресурс</a></li>
-        <li><a class="link-secondary" href="#">Другой ресурс</a></li>
-        <li><a class="link-secondary" href="#">Заключительный ресурс</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Ресурсы</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Бизнес</a></li>
-        <li><a class="link-secondary" href="#">Образование</a></li>
-        <li><a class="link-secondary" href="#">Правительство</a></li>
-        <li><a class="link-secondary" href="#">Игры</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>О нас</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Команда</a></li>
-        <li><a class="link-secondary" href="#">Локации</a></li>
-        <li><a class="link-secondary" href="#">Конфиденциальность</a></li>
-        <li><a class="link-secondary" href="#">Условия</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
+{% include 'includes/FAQ.html' %}
 
-bootstrap.bundle.min.js
+
     <script src="{% static 'js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
 
 
