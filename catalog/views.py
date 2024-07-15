@@ -26,5 +26,15 @@ def categories_list(request):
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    context = {'category': category}
+    products = Product.objects.filter(category=category)
+    context = {
+        'category': category,
+        'products': products,
+    }
     return render(request, 'category_detail.html', context=context)
+
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {'product': product}
+    return render(request, 'product_detail.html', context=context)

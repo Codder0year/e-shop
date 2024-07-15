@@ -2,27 +2,30 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="col-12">
+            <h2>{{ category.name }}</h2>
+            <p>{{ category.description }}</p>
+        </div>
+    </div>
+    <div class="row">
+        {% for product in products %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ category.name }}</h4>
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
                 </div>
                 <div class="card-body">
-                    {% if category.image %}
-                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
                     {% endif %}
-                    <h1 class="card-title pricing-card-title">{{ category.price }}</h1>
-                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>- {{ category.description }}</li>
-                        <li>- Поддержка</li>
-                        <li>- Установка на сервер</li>
-                        <li>- Получение обновлений</li>
-                    </ul>
+                    <h1 class="card-title pricing-card-title">{{ product.price }}</h1>
+                    <p class="mt-3 mb-4 text-start m-3">{{ product.description }}</p>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                    <a class="btn btn-lg btn-block btn-outline-primary" href="#">Подробнее</a>
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a> <!-- Кнопка "Подробнее" -->
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
