@@ -6,10 +6,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         Category_list = [
-            {"1110": "1"},
-            {"2": "2"},
-            {"3": "3"},
-            {"4": "4"},
+            {"mouse": "fsadfgdsgdsfgds"},
+            {"fsgadf": "gsdfhsdfhsdfhs"},
+            {"gdsfgdsfgsdfg": "sdgdsfgsdfg"},
+            {"sdfgsdgdsfg": "fdsgsdgdsg"},
         ]
 
         categories_in_create = []
