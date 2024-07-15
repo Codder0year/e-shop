@@ -3,19 +3,19 @@
 <div class="container">
     <div class="row">
         {% for category in categories %}
-        <div class="col-3">
+        <div class="col-3 d-flex align-items-stretch">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ category.name }}</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     {% if category.image %}
-                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid">
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid mb-3" style="height: 200px; object-fit: cover;">
                     {% endif %}
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>- {{ category.description }}</li>
+                        <!-- Additional info if needed -->
                     </ul>
-                    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:category_detail' category.pk %}">Подробнее</a>
+                    <a class="btn btn-lg btn-block btn-outline-primary mt-auto" href="{% url 'catalog:category_detail' category.pk %}">Подробнее</a>
                 </div>
             </div>
         </div>
