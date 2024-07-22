@@ -9,7 +9,6 @@ class Command(BaseCommand):
             {"mouse": "fsadfgdsgdsfgds"},
             {"fsgadf": "gsdfhsdfhsdfhs"},
             {"gdsfgdsfgsdfg": "sdgdsfgsdfg"},
-            {"sdfgsdgdsfg": "fdsgsdgdsg"},
         ]
 
         categories_in_create = []
