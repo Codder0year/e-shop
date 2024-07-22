@@ -1,30 +1,37 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import TemplateView, ListView, DetailView
+from .models import Category, Product
 
-from catalog.models import Category, Product
-
-
-def home(request):
-    return render(request, 'home.html')
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
 
 def contacts(request):
     if request.method == 'POST':
-        # в переменной request хранится информация о методе, который отправлял пользователь
         name = request.POST.get('name')
         message = request.POST.get('message')
         phone = request.POST.get('phone')
-        # а также передается информация, которую заполнил пользователь
         print(name, message, phone)
     return render(request, 'contacts.html')
 
 
-def categories_list(request):
-    categories = Category.objects.all()
-    context = {'categories': categories}
-    return render(request, 'categories_list.html', context=context)
+class CategoriesListView(ListView):
+    model = Category
+    template_name = 'categories_list.html'
+    context_object_name = 'categories'
 
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    context = {'category': category}
+    products = Product.objects.filter(category=category)
+    context = {
+        'category': category,
+        'products': products,
+    }
     return render(request, 'category_detail.html', context=context)
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'

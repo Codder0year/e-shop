@@ -1,14 +1,12 @@
-from django.shortcuts import render
 from django.urls import path
-from catalog.apps import CatalogConfig
+from .views import contacts, HomeView, CategoriesListView, category_detail, ProductDetailView
 
-from catalog.views import contacts, home, categories_list, category_detail
-app_name = CatalogConfig.name
-
+app_name = 'catalog'
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('categories/', categories_list, name='categories_list'),
+    path('', HomeView.as_view(), name='home'),
+    path('categories/', CategoriesListView.as_view(), name='categories_list'),
     path('contacts/', contacts, name='contacts'),
-    path('categories/<int:pk>/', category_detail, name='category_detail')
+    path('categories/<int:pk>/', category_detail, name='category_detail'),
+    path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
 ]

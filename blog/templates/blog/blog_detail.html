@@ -1,0 +1,13 @@
+{% extends "categories.html" %}
+{% block content %}
+<div class="container">
+    <h1>{{ object.title }}({{ object.slug }})</h1>
+    <img src="{{ object.preview.url }}" alt="{{ object.title }}" class="img-fluid">
+    <p>{{ object.body }}</p>
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'blog:update' object.pk %}" class="btn btn-warning">Редактировать</a>
+        Просмотры: {{ object.views_count }}
+        <a href="{% url 'blog:list' %}" class="btn btn-outline-secondary">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}

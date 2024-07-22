@@ -1,0 +1,28 @@
+{% extends "categories.html" %}
+{% block content %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'blog:create' %}">Добавить материал</a>
+</div>
+<div class="container">
+    <div class="row">
+        {% for object in object_list %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img src="{{ object.preview.url }}" alt="{{ object.title }}" class="card-img-top" style="width: 100%; height: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.title }}</h5>
+                    <p class="card-text">{{ object.body|truncatewords:20 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'blog:detail' object.pk %}" class="btn btn-info">Просмотр</a>
+                            <a href="{% url 'blog:update' object.pk %}" class="btn btn-primary">Редактировать</a>
+                            <a href="{% url 'blog:delete' object.pk %}" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

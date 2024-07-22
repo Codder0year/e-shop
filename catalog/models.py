@@ -29,9 +29,8 @@ class Product(models.Model):
         return (f'{self.name}, {self.category}, {self.price}, {self.created_at}, {self.updated_at}, {self.image}, '
                 f'{self.description}')
 
-
-class Meta:
-    verbose_name_plural = "Products"
-    verbose_name = "Product"
+    class Meta:
+        verbose_name_plural = "Products"
+        verbose_name = "Product"
 
 
