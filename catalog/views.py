@@ -1,6 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView
+
+from mailsender.models import Client
 from .models import Category, Product
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -11,8 +14,24 @@ def contacts(request):
         name = request.POST.get('name')
         message = request.POST.get('message')
         phone = request.POST.get('phone')
-        print(name, message, phone)
+        email = request.POST.get('email')
+
+        # Создаем и сохраняем новый объект Client
+        Client.objects.create(
+            email=email,
+            name=name,
+            phone=phone,
+            comment=message
+        )
+
+        # Перенаправляем на страницу успешной отправки
+        return redirect('catalog:contacts_success')
+
     return render(request, 'contacts.html')
+
+
+def success_page(request):
+    return render(request, 'success.html')
 
 
 class CategoriesListView(ListView):
