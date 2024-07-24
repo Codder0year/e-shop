@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Services</title>
+</head>
+<body>
+    <h1>Spam Services</h1>
+    <ul>
+        {% for spam in object_list %}
+            <li><a href="{% url 'mailsender:spamservis_detail' spam.pk %}">{{ spam }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

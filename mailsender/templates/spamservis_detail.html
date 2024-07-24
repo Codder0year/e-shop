@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Service Detail</title>
+</head>
+<body>
+    <h1>{{ object }}</h1>
+    <p>First send date: {{ object.first_send_date }}</p>
+    <p>Frequency: {{ object.get_frequency_display }}</p>
+    <p>Status: {{ object.get_status_display }}</p>
+    <p>Message: {{ object.message }}</p>
+</body>
+</html>
