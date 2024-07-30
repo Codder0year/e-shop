@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='наименование', help_text='Выберите категорию')
     description = models.TextField(max_length=1000, verbose_name='описание')
@@ -14,9 +13,8 @@ class Category(models.Model):
         verbose_name = "Category"
 
 
-# Create your models here.
 class Product(models.Model):
-    name = models.CharField(max_length=100, verbose_name='наименование', help_text='Введите азвание')
+    name = models.CharField(max_length=100, verbose_name='наименование', help_text='Введите название')
     description = models.TextField(max_length=1000, verbose_name='описание')
     image = models.ImageField(upload_to='images', verbose_name='изображение')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, verbose_name='категория', null=True, blank=True,
@@ -34,3 +32,11 @@ class Product(models.Model):
         verbose_name = "Product"
 
 
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='versions')
+    version_number = models.CharField(max_length=20)
+    version_name = models.CharField(max_length=255)
+    is_current = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.version_name} ({self.version_number})"
