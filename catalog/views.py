@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
 from mailsender.models import Client
-from .models import Category, Product
+from .models import Category, Product, Version
+from .forms import ProductForm, ProductVersionForm
 
 
 class HomeView(TemplateView):
@@ -25,7 +26,7 @@ def contacts(request):
         )
 
         # Перенаправляем на страницу успешной отправки
-        return redirect('catalog:contacts_success')
+        return redirect('contacts_success')
 
     return render(request, 'contacts.html')
 
@@ -54,3 +55,31 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'product_detail.html'
     context_object_name = 'product'
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product_form.html'
+    success_url = '/products/'
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product_form.html'
+    success_url = '/products/'
+
+
+class ProductVersionCreateView(CreateView):
+    model = Version
+    form_class = ProductVersionForm
+    template_name = 'version_form.html'
+    success_url = '/versions/'
+
+
+class ProductVersionUpdateView(UpdateView):
+    model = Version
+    form_class = ProductVersionForm
+    template_name = 'version_form.html'
+    success_url = '/versions/'
