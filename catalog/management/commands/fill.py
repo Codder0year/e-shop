@@ -6,9 +6,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         Category_list = [
-            {"mouse": "fsadfgdsgdsfgds"},
-            {"fsgadf": "gsdfhsdfhsdfhs"},
-            {"gdsfgdsfgsdfg": "sdgdsfgsdfg"},
+            {"name": "Electronics", "description": "Electronic devices and gadgets."},
+            {"name": "Books", "description": "A variety of books across different genres."},
+            {"name": "Clothing", "description": "Men's, women's, and children's clothing."},
         ]
 
         categories_in_create = []
