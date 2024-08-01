@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='наименование', help_text='Выберите категорию')
     description = models.TextField(max_length=1000, verbose_name='описание')
