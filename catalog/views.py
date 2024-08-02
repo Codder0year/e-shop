@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
 from mailsender.models import Client
@@ -17,16 +18,13 @@ def contacts(request):
         phone = request.POST.get('phone')
         email = request.POST.get('email')
 
-        # Создаем и сохраняем новый объект Client
         Client.objects.create(
             email=email,
             name=name,
             phone=phone,
             comment=message
         )
-
-        # Перенаправляем на страницу успешной отправки
-        return redirect('contacts_success')
+        return redirect('catalog:contacts_success')
 
     return render(request, 'contacts.html')
 
@@ -61,25 +59,45 @@ class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'product_form.html'
-    success_url = '/products/'
+    success_url = reverse_lazy('catalog:categories_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create Product'
+        return context
 
 
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'product_form.html'
-    success_url = '/products/'
+    success_url = reverse_lazy('catalog:categories_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update Product'
+        return context
 
 
 class ProductVersionCreateView(CreateView):
     model = Version
     form_class = ProductVersionForm
     template_name = 'version_form.html'
-    success_url = '/versions/'
+    success_url = reverse_lazy('catalog:categories_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create Product Version'
+        return context
 
 
 class ProductVersionUpdateView(UpdateView):
     model = Version
     form_class = ProductVersionForm
     template_name = 'version_form.html'
-    success_url = '/versions/'
+    success_url = reverse_lazy('catalog:categories_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update Product Version'
+        return context
