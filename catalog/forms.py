@@ -9,16 +9,16 @@ class ProductForm(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
-        prohibited_words = ['������', '������������', '������', '�����', '������', '���������', '�����', '�������', '�����']
+        prohibited_words = ["казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"]
         if any(word in name.lower() for word in prohibited_words):
             raise forms.ValidationError("�������� �������� ����������� �����.")
         return name
 
     def clean_description(self):
         description = self.cleaned_data.get('description')
-        prohibited_words = ['������', '������������', '������', '�����', '������', '���������', '�����', '�������', '�����']
+        prohibited_words = ["казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"]
         if any(word in description.lower() for word in prohibited_words):
-            raise forms.ValidationError("�������� �������� ����������� �����.")
+            raise forms.ValidationError("недопустимый формат ввода данных")
         return description
 
 
