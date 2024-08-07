@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from mailsender.models import Client
 from .models import Category, Product, Version
 from .forms import ProductForm, ProductVersionForm
@@ -55,11 +55,15 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'product_form.html'
     success_url = reverse_lazy('catalog:categories_list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user  # Привязываем текущего пользователя к продукту
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,7 +71,7 @@ class ProductCreateView(CreateView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'product_form.html'
@@ -77,6 +81,10 @@ class ProductUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update Product'
         return context
+
+    def get_queryset(self):
+        # Пользователь может редактировать только свои продукты
+        return super().get_queryset().filter(owner=self.request.user)
 
 
 class ProductVersionCreateView(CreateView):
