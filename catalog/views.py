@@ -83,9 +83,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
         # Проверка на владельца или наличие права редактирования любых продуктов
         if product.owner != request.user and not request.user.has_perm('catalog.can_edit_any_product'):
-            return HttpResponseForbidden("You are not allowed to edit this product.")
+            return HttpResponseForbidden("вы не можете редактировать .")
 
         return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # Передаем текущего пользователя в форму
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
