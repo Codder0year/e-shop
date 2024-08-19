@@ -1,6 +1,7 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mailsender.models import Client
 from .models import Category, Product, Version
@@ -77,14 +78,19 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'product_form.html'
     success_url = reverse_lazy('catalog:categories_list')
 
+    def dispatch(self, request, *args, **kwargs):
+        product = self.get_object()
+
+        # Проверка на владельца или наличие права редактирования любых продуктов
+        if product.owner != request.user and not request.user.has_perm('catalog.can_edit_any_product'):
+            return HttpResponseForbidden("You are not allowed to edit this product.")
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update Product'
         return context
-
-    def get_queryset(self):
-        # Пользователь может редактировать только свои продукты
-        return super().get_queryset().filter(owner=self.request.user)
 
 
 class ProductVersionCreateView(CreateView):
@@ -109,3 +115,20 @@ class ProductVersionUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update Product Version'
         return context
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:categories_list')
+
+
+def unpublish_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    if request.user.has_perm('catalog.can_unpublish_product'):
+        product.is_published = False
+        product.save()
+        return redirect('catalog:product_detail', pk=product.id)
+    else:
+        return HttpResponseForbidden("У вас нет прав для отмены публикации этого продукта.")

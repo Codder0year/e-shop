@@ -1,8 +1,15 @@
-{% extends "categories.html" %}
+% extends "categories.html" %}
 {% block content %}
 <div class="container">
     <h2>{{ category.name }}</h2>
     <p>{{ category.description }}</p>
+
+    {% if perms.catalog.can_add_product %}
+    <div class="mb-4">
+        <a class="btn btn-success" href="{% url 'catalog:product_create' %}">Добавить продукт</a>
+    </div>
+    {% endif %}
+
     <div class="row">
         {% for product in products %}
         <div class="col-3 d-flex align-items-stretch">
@@ -17,6 +24,22 @@
                     <h1 class="card-title pricing-card-title">{{ product.price }}</h1>
                     <p class="card-text">{{ product.description|truncatewords:20 }}</p>
                     <a class="btn btn-lg btn-block btn-outline-primary mt-auto" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
+
+                    <!-- Проверка на владельца или дополнительные права -->
+                    {% if product.owner == request.user or perms.catalog.can_edit_any_product %}
+                        <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">Edit Product</a>
+                    {% endif %}
+
+                    {% if product.owner == request.user or perms.catalog.can_unpublish_product %}
+                        <form method="post" action="{% url 'catalog:unpublish_product' product.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning">Unpublish</button>
+                        </form>
+                    {% endif %}
+
+                    {% if product.owner == request.user or perms.catalog.can_delete_product %}
+                        <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Delete Product</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
