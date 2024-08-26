@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mailsender.models import Client
+from services import get_cached_product_details
 from .models import Category, Product, Version
 from .forms import ProductForm, ProductVersionForm
 
@@ -55,6 +56,10 @@ class ProductDetailView(DetailView):
     template_name = 'product_detail.html'
     context_object_name = 'product'
 
+    def get_object(self, queryset=None):
+        product_pk = self.kwargs.get('pk')
+        return get_cached_product_details(product_pk)
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -69,6 +74,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create Product'
+        # Определяем, заблокировано ли поле `name`
+        form = self.get_form()
+        context['is_name_field_disabled'] = form.fields['name'].widget.attrs.get('disabled', False)
         return context
 
 

@@ -20,7 +20,7 @@
                 {{ form.as_p }}
 
                 <!-- Пример вывода сообщений о заблокированных полях -->
-                {% if not form.fields.name.widget.attrs.get('disabled', False) %}
+                {% if not is_name_field_disabled %}
                     <div class="alert alert-info mt-3">
                         Вы можете редактировать имя продукта.
                     </div>
@@ -71,4 +71,3 @@
 
 </body>
 </html>
-

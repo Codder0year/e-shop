@@ -1,0 +1,13 @@
+{% extends "categories.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+        <a class="btn btn-secondary" href="{% url 'catalog:product_detail' object.pk %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}
